@@ -1,26 +1,37 @@
 #!/usr/bin/env python3
-"""minimum operations"""
+"""
+This module contains a function to calculate the fewest number
+of operations needed to result in exactly n 'H' characters in the file.
+"""
 
 
-def minOperations(n):
+def minOperations(n: int) -> int:
     """
-    TODO: add doc strings
+    Calculates the fewest number of operations needed to
+    result in exactly n 'H' characters in the file.
+
+    Args:
+        n (int): The target number of 'H' characters.
+
+    Returns:
+        int: The fewest number of operations needed, or 0 if n is
+        impossible to achieve.
     """
     if n <= 1:
         return 0
 
-    min_operations = 0
-    current_length = 1
-    clipboard = 0
+    operations = 0
+    divisor = 2
 
-    while current_length < n:
-        if n % current_length == 0:
-            clipboard = current_length
-            min_operations += 1  # Copy All operation
-            current_length += clipboard
-            min_operations += 1  # Paste operation
-        else:
-            current_length += clipboard
-            min_operations += 1  # Paste operation
+    while n > 1:
+        while n % divisor == 0:
+            operations += divisor
+            n //= divisor
+        divisor += 1
 
-    return min_operations
+    return operations
+
+
+if __name__ == "__main__":
+    print("Min # of operations to reach 4 characters:", minOperations(4))
+    print("Min # of operations to reach 12 characters:", minOperations(12))
