@@ -13,6 +13,8 @@ log_pattern = (
     r'\[(.*)\] "GET /projects/260 HTTP/1.1" '
     r'(\d{3}) (\d+)\s*$'
 )
+
+
 # Dictionary to store the count of each status code
 status_code_count = {
     200: 0, 301: 0, 400: 0, 401: 0,
@@ -28,12 +30,14 @@ line_count = 0
 
 
 def signal_handler(sig, frame):
+    """todo: add comment"""
     global total_file_size, status_code_count, line_count
     print_metrics()
     sys.exit(0)
 
 
 def print_metrics():
+    """todo: add comment"""
     global total_file_size, status_code_count
     print(f"File size: {total_file_size}")
     for status_code in sorted(status_code_count.keys()):
@@ -42,6 +46,7 @@ def print_metrics():
 
 
 def read_logs():
+    """todo: add comment"""
     global total_file_size, status_code_count, line_count
     signal.signal(signal.SIGINT, signal_handler)
     for line in sys.stdin:
