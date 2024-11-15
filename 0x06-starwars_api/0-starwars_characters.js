@@ -1,5 +1,3 @@
-#!/usr/bin/node
-
 /*
   This script prints all characters of a Star Wars movie.
 
@@ -10,6 +8,7 @@
     node 0-starwars_characters.js 3  # Prints characters from "Return of the Jedi"
 */
 
+// eslint-disable-next-line import/no-extraneous-dependencies
 const request = require('request');
 
 if (process.argv.length < 3) {
@@ -31,18 +30,15 @@ request(apiUrl, (error, response, body) => {
     const characterUrls = film.characters;
 
     // Create an array of promises for fetching character data
-    const characterPromises = characterUrls.map((url) => {
-      return new Promise((resolve, reject) => {
-        request(url, (error, response, body) => {
-          if (error) {
-            reject(error);
-          } else {
-            resolve(JSON.parse(body).name);  
-
-          }
-        });
+    const characterPromises = characterUrls.map((url) => new Promise((resolve, reject) => {
+      request(url, (error, response, body) => {
+        if (error) {
+          reject(error);
+        } else {
+          resolve(JSON.parse(body).name);
+        }
       });
-    });
+    }));
 
     // Wait for all promises to resolve and then print character names
     Promise.all(characterPromises)
@@ -56,3 +52,4 @@ request(apiUrl, (error, response, body) => {
     console.error(error);
   }
 });
+
