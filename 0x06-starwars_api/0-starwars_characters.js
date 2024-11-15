@@ -1,3 +1,5 @@
+#!/usr/bin/node
+
 /*
   This script prints all characters of a Star Wars movie.
 
