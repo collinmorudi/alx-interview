@@ -24,14 +24,14 @@ def isWinner(x, nums):
     ben_wins = 0
 
     for n in nums:
-        primes = get_primes(n)  # Get all prime numbers up to n
+        primes = get_primes(n)
         num_primes = len(primes)
 
-        # If the number of primes is even, Maria (first player) wins
+        # Corrected logic: Ben wins if the number of primes is even
         if num_primes % 2 == 0:
-            maria_wins += 1
-        else:
             ben_wins += 1
+        else:
+            maria_wins += 1
 
     if maria_wins > ben_wins:
         return "Maria"
